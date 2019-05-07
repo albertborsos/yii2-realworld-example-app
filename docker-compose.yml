@@ -1,9 +1,24 @@
 version: '2'
 services:
-  php:
-    image: yiisoftware/yii2-php:7.1-apache
+  web:
+    image: yiisoftware/yii2-php:7.3-apache
     volumes:
       - ~/.composer-docker/cache:/root/.composer/cache:delegated
       - ./:/app:delegated
     ports:
       - '8000:80'
+    links:
+      - db
+  db:
+    image: mariadb:latest
+    ports:
+      - 3306
+    environment:
+      MYSQL_DATABASE: database
+      MYSQL_USER: user
+      MYSQL_PASSWORD: pass
+      MYSQL_ROOT_PASSWORD: password
+    volumes:
+      - db_data:/var/lib/mysql
+volumes:
+  db_data:
