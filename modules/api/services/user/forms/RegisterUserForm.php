@@ -29,5 +29,4 @@ class RegisterUserForm extends Model
             [['password', 'username'], 'string'],
         ];
     }
-
 }

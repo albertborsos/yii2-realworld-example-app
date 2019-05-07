@@ -8,6 +8,16 @@ use yii\web\Response;
 
 class Controller extends \yii\rest\Controller
 {
+    protected $modelAlias;
+
+    public function init()
+    {
+        if ($this->modelAlias) {
+            $this->serializer = ['class' => Serializer::class, 'alias' => $this->modelAlias];
+        }
+        parent::init();
+    }
+
     public function behaviors()
     {
         return array_merge(parent::behaviors(), [
@@ -19,6 +29,7 @@ class Controller extends \yii\rest\Controller
             ],
             'authenticator' => [
                 'class' => HttpBearerAuth::class,
+                'pattern' => '/^Token\s+(.*?)$/',
             ],
         ]);
     }

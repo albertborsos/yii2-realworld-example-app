@@ -43,9 +43,17 @@ class Module extends \yii\base\Module implements BootstrapInterface
                 'class' => UrlRule::class,
                 'prefix' => $this->id,
                 'controller' => ['users' => $this->id . '/auth'],
-//                'only' => ['login', 'register', 'current', 'update'],
                 'extraPatterns' => [
                     'login' => 'login',
+                ],
+            ],
+            [
+                'class' => UrlRule::class,
+                'prefix' => $this->id,
+                'controller' => ['user' => $this->id . '/auth'],
+                'only' => ['index', 'update'],
+                'extraPatterns' => [
+                    'PUT,PATCH' => 'update',
                 ],
             ],
         ]);

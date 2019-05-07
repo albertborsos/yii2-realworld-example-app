@@ -2,14 +2,19 @@
 
 namespace app\modules\api\controllers;
 
-use app\domains\user\ar\User;
 use app\modules\api\components\Controller;
+use app\modules\api\domains\user\User;
+use app\modules\api\services\user\forms\LoginUserForm;
 use app\modules\api\services\user\forms\RegisterUserForm;
+use app\modules\api\services\user\forms\UpdateUserForm;
+use app\modules\api\services\user\LoginUserService;
 use app\modules\api\services\user\RegisterUserService;
-use yii\helpers\ArrayHelper;
+use app\modules\api\services\user\UpdateUserService;
 
 class AuthController extends Controller
 {
+    protected $modelAlias = 'user';
+
     public function behaviors()
     {
         $behaviors = parent::behaviors();
@@ -33,7 +38,7 @@ class AuthController extends Controller
         if ($form->load(\Yii::$app->request->post(), 'user') && $form->validate()) {
             $service = new RegisterUserService($form);
             if ($id = $service->execute()) {
-                return \app\domains\user\User::findOne($id);
+                return \app\modules\api\domains\user\User::findOne($id);
             }
         }
 
@@ -42,26 +47,35 @@ class AuthController extends Controller
 
     public function actionLogin()
     {
-        $request = \Yii::$app->request;
+        $form = new LoginUserForm();
 
-        return [
-            'user' => [
-                'email' => ArrayHelper::getValue($request->post(), 'user.email'),
-                'username' => ArrayHelper::getValue($request->post(), 'user.username', 'username'),
-                'bio' => ArrayHelper::getValue($request->post(), 'user.bio', 'bio'),
-                'image' => ArrayHelper::getValue($request->post(), 'user.image', 'image'),
-                'token' => ArrayHelper::getValue($request->post(), 'user.token', 'token'),
-            ],
-        ];
+        if ($form->load(\Yii::$app->request->post(), 'user') && $form->validate()) {
+            $service = new LoginUserService($form);
+            if ($id = $service->execute()) {
+                return \app\modules\api\domains\user\User::findOne($id);
+            }
+        }
+
+        return $form;
     }
 
     public function actionIndex()
     {
-        return 'hello';
+        return User::findOne(\Yii::$app->user->id);
     }
 
     public function actionUpdate()
     {
+        $model = User::findOne(\Yii::$app->user->id);
+        $form = new UpdateUserForm($model);
 
+        if ($form->load(\Yii::$app->request->post(), 'user') && $form->validate()) {
+            $service = new UpdateUserService($form, $model);
+            if ($id = $service->execute()) {
+                return \app\modules\api\domains\user\User::findOne($id);
+            }
+        }
+
+        return $form;
     }
 }

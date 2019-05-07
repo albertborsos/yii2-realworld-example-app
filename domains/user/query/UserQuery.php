@@ -3,9 +3,9 @@
 namespace app\domains\user\query;
 
 /**
- * This is the ActiveQuery class for [[\app\domains\user\User]].
+ * This is the ActiveQuery class for [[\app\domains\user\ar\User]].
  *
- * @see \app\domains\user\User
+ * @see \app\domains\user\ar\User
  */
 class UserQuery extends \yii\db\ActiveQuery
 {
@@ -16,7 +16,7 @@ class UserQuery extends \yii\db\ActiveQuery
 
     /**
      * {@inheritdoc}
-     * @return \app\domains\user\User[]|array
+     * @return \app\domains\user\ar\User[]|array
      */
     public function all($db = null)
     {
@@ -25,7 +25,7 @@ class UserQuery extends \yii\db\ActiveQuery
 
     /**
      * {@inheritdoc}
-     * @return \app\domains\user\User|array|null
+     * @return \app\domains\user\ar\User|array|null
      */
     public function one($db = null)
     {

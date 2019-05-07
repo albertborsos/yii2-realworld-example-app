@@ -2,21 +2,18 @@
 
 namespace app\modules\api\services\user;
 
+use app\components\Service;
 use app\modules\api\domains\user\User;
 use app\modules\api\services\user\forms\RegisterUserForm;
-use yii\base\Component;
 
-class RegisterUserService extends Component
+/**
+ * Class RegisterUserService
+ * @package app\modules\api\services\user
+ *
+ * @property RegisterUserForm $form
+ */
+class RegisterUserService extends Service
 {
-    /** @var RegisterUserForm */
-    private $form;
-
-    public function __construct(RegisterUserForm $form, array $config = [])
-    {
-        parent::__construct($config);
-        $this->form = $form;
-    }
-
     /**
      * @return bool|int
      * @throws \yii\base\Exception
