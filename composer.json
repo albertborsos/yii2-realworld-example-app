@@ -35,6 +35,11 @@
             "enabled": false
         }
     },
+    "autoload": {
+        "psr-4": {
+            "app\\": "/"
+        }
+    },
     "scripts": {
         "post-install-cmd": [
             "yii\\composer\\Installer::postInstall"
