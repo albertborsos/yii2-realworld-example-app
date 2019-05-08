@@ -1,12 +1,9 @@
 language: php
 
 php:
-  - 5.4
-  - 5.5
-  - 5.6
-  - 7.0
   - 7.1
-#  - hhvm
+  - 7.2
+  - 7.3
 
 # faster builds on new travis setup not using sudo
 sudo: false
@@ -18,6 +15,13 @@ cache:
 
 services:
   - mysql
+
+env:
+  global:
+    - DB_DSN="mysql:host=localhost;dbname=yii2_basic_tests"
+    - DB_TEST_DSN="mysql:host=localhost;dbname=yii2_basic_tests"
+    - DB_USER=root
+    - DB_PASS=
 
 before_install:
   - mysql -e 'CREATE DATABASE IF NOT EXISTS yii2_basic_tests;'
@@ -40,6 +44,9 @@ install:
     sed -i "s/'cookieValidationKey' => ''/'cookieValidationKey' => 'testkey'/" config/web.php
 
 script:
+  - php tests/bin/yii migrate --interactive=0
   - |
-    php -S localhost:8080 -t web > /dev/null 2>&1 &
+    php -S localhost:8080 -t web-test > /dev/null 2>&1 &
     vendor/bin/codecept run
+  - curl  http://localhost:8080/api/articles
+  - APIURL="http://localhost:8080/api" sh run-api-tests.sh
