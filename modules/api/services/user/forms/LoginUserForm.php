@@ -21,7 +21,7 @@ class LoginUserForm extends Model
             [['email'], 'email'],
             [['email'], 'exist', 'targetClass' => User::class, 'targetAttribute' => 'email'],
 
-            [['password'], 'validatePassword'],
+            [['password'], 'validatePassword', 'when' => function () { return empty($this->errors); }],
         ];
     }
 

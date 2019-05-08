@@ -9,6 +9,8 @@ $config = [
     'id' => 'basic',
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log', 'api'],
+    'language' => 'en',
+    'sourceLanguage' => 'en',
     'aliases' => [
         '@bower' => '@vendor/bower-asset',
         '@npm' => '@vendor/npm-asset',
@@ -50,6 +52,16 @@ $config = [
         'urlManager' => [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
+        ],
+        'i18n' => [
+            'class' => \yii\i18n\I18N::class,
+            'translations' => [
+                '*' => [
+                    'basePath' => '@app/messages',
+                    'class' => yii\i18n\PhpMessageSource::class,
+                    'sourceLanguage' => 'en',
+                ],
+            ],
         ],
     ],
     'modules' => [

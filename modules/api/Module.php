@@ -5,10 +5,7 @@ namespace app\modules\api;
 use Yii;
 use yii\base\Application;
 use yii\base\BootstrapInterface;
-use yii\di\Instance;
-use yii\helpers\VarDumper;
 use yii\rest\UrlRule;
-use yii\web\UrlManager;
 
 class Module extends \yii\base\Module implements BootstrapInterface
 {
@@ -55,6 +52,11 @@ class Module extends \yii\base\Module implements BootstrapInterface
                 'extraPatterns' => [
                     'PUT,PATCH' => 'update',
                 ],
+            ],
+            [
+                'class' => UrlRule::class,
+                'prefix' => $this->id,
+                'controller' => ['articles' => $this->id . '/article'],
             ],
         ]);
     }

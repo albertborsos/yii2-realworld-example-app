@@ -7,7 +7,7 @@ use app\modules\api\domains\comment\Comment;
 use app\modules\api\domains\favorite\Favorite;
 use app\modules\api\domains\follow\Follow;
 
-class User extends \app\domains\user\User
+class Profile extends \app\domains\user\User
 {
     protected $articleClass = Article::class;
     protected $commentClass = Comment::class;
@@ -17,11 +17,16 @@ class User extends \app\domains\user\User
     public function fields()
     {
         return [
-            'email',
-            'token',
             'username',
             'bio',
             'image',
+            'following',
         ];
+    }
+
+    public function getFollowing()
+    {
+        // #TODO check it is OK?
+        return $this->getFollows()->where(['follower_id' => \Yii::$app->user->id])->exists();
     }
 }
