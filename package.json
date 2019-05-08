@@ -1,0 +1,7 @@
+{
+    "name": "yii2-realword-example-app",
+    "version": "1.0.0",
+    "dependencies": {
+        "npx": "^10.2.0"
+    }
+}

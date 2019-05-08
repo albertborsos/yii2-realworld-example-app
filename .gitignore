@@ -33,4 +33,5 @@ tests/_support/_generated
 /.vagrant
 
 /compose
-/docker
+/docker/compose
+/node_modules

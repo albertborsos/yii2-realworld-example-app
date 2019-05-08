@@ -1,10 +1,17 @@
 version: '2'
 services:
   web:
-    image: yiisoftware/yii2-php:7.3-apache
+    build:
+      context: ./docker
+      dockerfile: Dockerfile.dev
     volumes:
+      - .:/var/www/app
+      # TODO: temporary workaround for public web-root
+      - ./public:/app/web
+      # host-volume for composer cache
       - ~/.composer-docker/cache:/root/.composer/cache:delegated
-      - ./:/app:delegated
+      - ~/.composer:/var/www/.composerhost
+      - ~/.ssh:/var/www/.ssh
     ports:
       - '8000:80'
     links:
