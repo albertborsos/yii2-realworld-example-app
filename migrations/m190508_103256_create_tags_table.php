@@ -41,6 +41,7 @@ class m190508_103256_create_tags_table extends Migration
      */
     public function safeDown()
     {
-        $this->dropTable('{{%tags}}');
+        $this->dropTable('{{%article_tag}}');
+        $this->dropTable('{{%tag}}');
     }
 }
