@@ -35,7 +35,6 @@ class UpdateUserForm extends Model
         return [
             [['email', 'password', 'username', 'image', 'bio'], HtmlPurifierFilter::class],
             [['email', 'password', 'username', 'image', 'bio'], 'default'],
-            [['email', 'password', 'username'], 'required'],
 
             [['password', 'username', 'image', 'bio'], 'string'],
 
