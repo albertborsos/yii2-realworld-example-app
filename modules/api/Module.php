@@ -58,6 +58,9 @@ class Module extends \yii\base\Module implements BootstrapInterface
                 'prefix' => $this->id,
                 'controller' => ['articles' => $this->id . '/article'],
                 'except' => ['feed'],
+                'tokens' => [
+                    '{id}' => '<id>',
+                ],
             ],
             [
                 'class' => UrlRule::class,
@@ -83,7 +86,7 @@ class Module extends \yii\base\Module implements BootstrapInterface
                     'DELETE {username}/follow' => 'unfollow',
                 ],
                 'tokens' => [
-                    '{username}' => '<username:\\w[\\w,]*>',
+                    '{username}' => '<username>',
                 ],
             ],
         ]);

@@ -8,6 +8,7 @@ use app\modules\api\domains\article\Article;
 use app\modules\api\services\article\CreateArticleService;
 use app\modules\api\services\article\forms\CreateArticleForm;
 use app\modules\api\services\article\forms\SearchArticleForm;
+use yii\rest\ViewAction;
 
 class ArticleController extends ActiveController
 {
@@ -26,6 +27,14 @@ class ArticleController extends ActiveController
     public function actions()
     {
         $actions = array_merge(parent::actions(), [
+            'view' => [
+                'class' => ViewAction::class,
+                'modelClass' => $this->modelClass,
+                'checkAccess' => [$this, 'checkAccess'],
+                'findModel' => function ($id) {
+                    return Article::findOne(['slug' => $id]);
+                },
+            ],
             'feed' => [
                 'class' => IndexAction::class,
                 'modelClass' => $this->modelClass,
