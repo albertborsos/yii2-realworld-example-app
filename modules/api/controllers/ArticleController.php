@@ -8,7 +8,10 @@ use app\modules\api\domains\article\Article;
 use app\modules\api\services\article\CreateArticleService;
 use app\modules\api\services\article\forms\CreateArticleForm;
 use app\modules\api\services\article\forms\SearchArticleForm;
+use app\modules\api\services\article\forms\UpdateArticleForm;
+use app\modules\api\services\article\UpdateArticleService;
 use yii\rest\ViewAction;
+use yii\web\NotFoundHttpException;
 
 class ArticleController extends ActiveController
 {
@@ -44,6 +47,7 @@ class ArticleController extends ActiveController
         ]);
 
         unset($actions['create']);
+        unset($actions['update']);
 
         return $actions;
     }
@@ -64,9 +68,33 @@ class ArticleController extends ActiveController
         return $form;
     }
 
+    public function actionUpdate($id)
+    {
+        $model = Article::findOne([
+            'slug' => $id,
+            'user_id' => \Yii::$app->user->id,
+        ]);
+
+        if (empty($model)) {
+            throw new NotFoundHttpException('Article not found.');
+        }
+
+        $form = new UpdateArticleForm($model);
+
+        if ($form->load(\Yii::$app->request->post(), 'article') && $form->validate()) {
+            $service = new UpdateArticleService($form, $model);
+            if ($id = $service->execute()) {
+                return Article::findOne($id);
+            }
+        }
+
+        return $form;
+    }
+
     public function prepareDataProvider()
     {
         $searchModel = new SearchArticleForm();
+
         return $searchModel->search(\Yii::$app->request->queryParams);
     }
 }
