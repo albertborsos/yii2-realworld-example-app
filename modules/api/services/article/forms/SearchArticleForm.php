@@ -27,13 +27,14 @@ class SearchArticleForm extends Model
     {
         return [
             [['id', 'user_id', 'createdAt', 'createdBy', 'updatedAt', 'updatedBy'], 'integer'],
-            [['slug', 'title', 'description', 'body', 'author'], 'safe'],
+            [['author', 'favorited'], 'string'],
+            [['slug', 'title', 'description', 'body'], 'safe'],
         ];
     }
 
     public function search($params)
     {
-        $query = Article::find()->joinWith('author');
+        $query = Article::find();
 
         // add conditions that should always apply here
 
@@ -57,8 +58,20 @@ class SearchArticleForm extends Model
             'created_by' => $this->createdBy,
             'updated_at' => $this->updatedAt,
             'updated_by' => $this->updatedBy,
-            'user.username' => $this->author,
         ]);
+
+        if ($this->author) {
+            $query->joinWith(['author author']);
+            $query->andWhere(['author.username' => $this->author]);
+        }
+
+        if ($this->favorited) {
+            $query->joinWith([
+                'favorites',
+                'favorites.user favoritesUser',
+            ]);
+            $query->andWhere(['favoritesUser.username' => $this->favorited]);
+        }
 
         $query->andFilterWhere(['like', 'slug', $this->slug])
             ->andFilterWhere(['like', 'title', $this->title])
