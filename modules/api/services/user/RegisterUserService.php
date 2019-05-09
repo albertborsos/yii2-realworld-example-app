@@ -21,10 +21,10 @@ class RegisterUserService extends Service
     public function execute()
     {
         $this->form = $this->hashPassword($this->form);
-        $this->form = $this->setToken($this->form);
 
         $model = new User();
         $model->setAttributes($this->form->attributes);
+        $model->updateToken();
 
         if ($model->save()) {
             return $model->id;
@@ -43,13 +43,6 @@ class RegisterUserService extends Service
     private function hashPassword(RegisterUserForm $form)
     {
         $form->password = \Yii::$app->security->generatePasswordHash($form->password);
-
-        return $form;
-    }
-
-    private function setToken(RegisterUserForm $form)
-    {
-        $form->token = \Yii::$app->security->generateRandomString(32);
 
         return $form;
     }

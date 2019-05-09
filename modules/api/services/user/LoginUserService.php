@@ -17,7 +17,7 @@ class LoginUserService extends Service
     {
         /** @var User $model */
         $model = User::findOne(['email' => $this->form->email]);
-        $model = $this->refreshToken($model);
+        $model->updateToken();
 
         if ($model->save()) {
             return $model->id;
@@ -26,12 +26,5 @@ class LoginUserService extends Service
         $this->form->addErrors($model->getErrors());
 
         return false;
-    }
-
-    private function refreshToken(User $model)
-    {
-        $model->token = \Yii::$app->security->generateRandomString();
-
-        return $model;
     }
 }

@@ -24,4 +24,19 @@ class User extends \app\domains\user\User
             'image',
         ];
     }
+
+    /**
+     * @param string|null $token
+     * @throws \yii\base\Exception
+     */
+    public function updateToken(string $token = null): void
+    {
+        if ($token) {
+            $this->token = $token;
+
+            return;
+        }
+
+        $this->token = \Yii::$app->security->generateRandomString();
+    }
 }

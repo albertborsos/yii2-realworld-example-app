@@ -12,8 +12,6 @@ class RegisterUserForm extends Model
     public $password;
     public $username;
 
-    public $token;
-
     public function rules()
     {
         return [
