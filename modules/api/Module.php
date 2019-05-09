@@ -58,6 +58,18 @@ class Module extends \yii\base\Module implements BootstrapInterface
                 'prefix' => $this->id,
                 'controller' => ['articles' => $this->id . '/article'],
             ],
+            [
+                'class' => UrlRule::class,
+                'prefix' => $this->id,
+                'controller' => ['profiles' => $this->id . '/profile'],
+                'only' => ['view'],
+                'extraPatterns' => [
+                    'GET,HEAD {username}' => 'view',
+                ],
+                'tokens' => [
+                    '{username}' => '<username:\\w[\\w,]*>',
+                ],
+            ],
         ]);
     }
 }
