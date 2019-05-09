@@ -3,6 +3,7 @@
 namespace app\modules\api\services\article\forms;
 
 use app\modules\api\domains\article\Article;
+use app\modules\api\domains\follow\Follow;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 
@@ -23,11 +24,14 @@ class SearchArticleForm extends Model
     public $favoritesCount;
     public $author;
 
+    public $isFeed;
+
     public function rules()
     {
         return [
             [['id', 'user_id', 'createdAt', 'createdBy', 'updatedAt', 'updatedBy'], 'integer'],
             [['author', 'favorited'], 'string'],
+            [['isFeed'], 'boolean'],
             [['slug', 'title', 'description', 'body'], 'safe'],
         ];
     }
@@ -71,6 +75,12 @@ class SearchArticleForm extends Model
                 'favorites.user favoritesUser',
             ]);
             $query->andWhere(['favoritesUser.username' => $this->favorited]);
+        }
+
+        if ($this->isFeed && \Yii::$app->user->isGuest === false) {
+            // only those articles which authors are followed by the user
+            $followedAuthorIds = Follow::find()->where(['follower_id' => \Yii::$app->user->id])->select('followed_id')->column();
+            $query->andFilterWhere(['user_id' => $followedAuthorIds]);
         }
 
         $query->andFilterWhere(['like', 'slug', $this->slug])

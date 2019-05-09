@@ -2,6 +2,7 @@
 
 namespace app\modules\api\controllers;
 
+use app\modules\api\components\actions\IndexAction;
 use app\modules\api\components\ActiveController;
 use app\modules\api\domains\article\Article;
 use app\modules\api\services\article\CreateArticleService;
@@ -24,7 +25,14 @@ class ArticleController extends ActiveController
 
     public function actions()
     {
-        $actions = parent::actions();
+        $actions = array_merge(parent::actions(), [
+            'feed' => [
+                'class' => IndexAction::class,
+                'modelClass' => $this->modelClass,
+                'checkAccess' => [$this, 'checkAccess'],
+                'prepareDataProvider' => [$this, 'prepareDataProvider']
+            ],
+        ]);
 
         unset($actions['create']);
 

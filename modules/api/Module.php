@@ -57,6 +57,20 @@ class Module extends \yii\base\Module implements BootstrapInterface
                 'class' => UrlRule::class,
                 'prefix' => $this->id,
                 'controller' => ['articles' => $this->id . '/article'],
+                'except' => ['feed'],
+            ],
+            [
+                'class' => UrlRule::class,
+                'prefix' => $this->id,
+                'controller' => ['articles' => $this->id . '/article'],
+                'only' => ['feed'],
+                'extraPatterns' => [
+                    'GET,HEAD feed' => 'feed',
+                ],
+                'ruleConfig' => [
+                    'class' => \yii\web\UrlRule::class,
+                    'defaults' => ['isFeed' => 1],
+                ]
             ],
             [
                 'class' => UrlRule::class,
