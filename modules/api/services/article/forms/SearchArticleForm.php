@@ -23,6 +23,7 @@ class SearchArticleForm extends Model
     public $favorited;
     public $favoritesCount;
     public $author;
+    public $tag;
 
     public $isFeed;
 
@@ -30,7 +31,7 @@ class SearchArticleForm extends Model
     {
         return [
             [['id', 'user_id', 'createdAt', 'createdBy', 'updatedAt', 'updatedBy'], 'integer'],
-            [['author', 'favorited'], 'string'],
+            [['author', 'favorited', 'tag'], 'string'],
             [['isFeed'], 'boolean'],
             [['slug', 'title', 'description', 'body'], 'safe'],
         ];
@@ -67,6 +68,11 @@ class SearchArticleForm extends Model
         if ($this->author) {
             $query->joinWith(['author author']);
             $query->andWhere(['author.username' => $this->author]);
+        }
+
+        if ($this->tag) {
+            $query->joinWith(['tags tag']);
+            $query->andWhere(['tag.name' => $this->tag]);
         }
 
         if ($this->favorited) {
