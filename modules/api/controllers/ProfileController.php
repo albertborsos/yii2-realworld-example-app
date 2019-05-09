@@ -15,6 +15,14 @@ class ProfileController extends Controller
 {
     protected $modelAlias = 'profile';
 
+    public function behaviors()
+    {
+        $behaviors = parent::behaviors();
+        $behaviors['authenticator']['except'] = ['view'];
+
+        return $behaviors;
+    }
+
     /**
      * @param $username
      * @return \app\modules\api\domains\user\Profile|null
