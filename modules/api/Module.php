@@ -62,9 +62,11 @@ class Module extends \yii\base\Module implements BootstrapInterface
                 'class' => UrlRule::class,
                 'prefix' => $this->id,
                 'controller' => ['profiles' => $this->id . '/profile'],
-                'only' => ['view'],
+                'only' => ['view', 'follow', 'unfollow'],
                 'extraPatterns' => [
                     'GET,HEAD {username}' => 'view',
+                    'POST {username}/follow' => 'follow',
+                    'DELETE {username}/follow' => 'unfollow',
                 ],
                 'tokens' => [
                     '{username}' => '<username:\\w[\\w,]*>',
