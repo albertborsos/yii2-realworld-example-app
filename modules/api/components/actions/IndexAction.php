@@ -2,6 +2,7 @@
 
 namespace app\modules\api\components\actions;
 
+use app\modules\api\components\RealWorldPagination;
 use Yii;
 use yii\data\ActiveDataProvider;
 
@@ -46,6 +47,7 @@ class IndexAction extends \yii\rest\IndexAction
             'class' => ActiveDataProvider::class,
             'query' => $query,
             'pagination' => [
+                'class' => RealWorldPagination::class,
                 'params' => $requestParams,
             ],
             'sort' => [

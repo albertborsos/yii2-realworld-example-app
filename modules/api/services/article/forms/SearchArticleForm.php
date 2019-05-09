@@ -2,6 +2,7 @@
 
 namespace app\modules\api\services\article\forms;
 
+use app\modules\api\components\RealWorldPagination;
 use app\modules\api\domains\article\Article;
 use app\modules\api\domains\follow\Follow;
 use yii\base\Model;
@@ -45,6 +46,10 @@ class SearchArticleForm extends Model
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
+            'pagination' => [
+                'class' => RealWorldPagination::class,
+                'params' => $params,
+            ],
         ]);
 
         $this->load($params, '');
@@ -87,6 +92,7 @@ class SearchArticleForm extends Model
             // only those articles which authors are followed by the user
             $followedAuthorIds = Follow::find()->where(['follower_id' => \Yii::$app->user->id])->select('followed_id')->column();
             $query->andFilterWhere(['user_id' => $followedAuthorIds]);
+            $query->orderBy(['id' => SORT_DESC]);
         }
 
         $query->andFilterWhere(['like', 'slug', $this->slug])
