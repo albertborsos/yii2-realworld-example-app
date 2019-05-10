@@ -10,6 +10,7 @@ use app\modules\api\services\article\forms\CreateArticleForm;
 use app\modules\api\services\article\forms\SearchArticleForm;
 use app\modules\api\services\article\forms\UpdateArticleForm;
 use app\modules\api\services\article\UpdateArticleService;
+use yii\rest\DeleteAction;
 use yii\rest\ViewAction;
 use yii\web\NotFoundHttpException;
 
@@ -35,8 +36,33 @@ class ArticleController extends ActiveController
                 'modelClass' => $this->modelClass,
                 'checkAccess' => [$this, 'checkAccess'],
                 'findModel' => function ($id) {
-                    return Article::findOne(['slug' => $id]);
+                    $model = Article::findOne([
+                        'slug' => $id,
+                    ]);
+
+                    if ($model) {
+                        return $model;
+                    }
+
+                    throw new NotFoundHttpException("Object not found: $id");
                 },
+            ],
+            'delete' => [
+                'class' => DeleteAction::class,
+                'modelClass' => $this->modelClass,
+                'checkAccess' => [$this, 'checkAccess'],
+                'findModel' => function ($id) {
+                    $model = Article::findOne([
+                        'slug' => $id,
+                        'user_id' => \Yii::$app->user->id,
+                    ]);
+
+                    if ($model) {
+                        return $model;
+                    }
+
+                    throw new NotFoundHttpException("Object not found: $id");
+                }
             ],
             'feed' => [
                 'class' => IndexAction::class,
