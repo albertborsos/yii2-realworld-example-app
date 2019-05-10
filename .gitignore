@@ -31,3 +31,7 @@ tests/_support/_generated
 
 #vagrant folder
 /.vagrant
+
+/compose
+/docker/compose
+/node_modules

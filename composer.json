@@ -14,10 +14,11 @@
     },
     "minimum-stability": "stable",
     "require": {
-        "php": ">=5.4.0",
+        "php": ">=7.1.0",
         "yiisoft/yii2": "~2.0.14",
         "yiisoft/yii2-bootstrap": "~2.0.0",
-        "yiisoft/yii2-swiftmailer": "~2.0.0 || ~2.1.0"
+        "yiisoft/yii2-swiftmailer": "~2.0.0 || ~2.1.0",
+        "nesbot/carbon": "^2.17"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.1.0",
@@ -33,6 +34,11 @@
         "process-timeout": 1800,
         "fxp-asset": {
             "enabled": false
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "app\\": "/"
         }
     },
     "scripts": {

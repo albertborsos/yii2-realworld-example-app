@@ -1,0 +1,61 @@
+FROM yiisoftware/yii-php:7.3-apache
+
+RUN apt-get update && \
+    apt-get -y install \
+    curl \
+    git \
+    bzip2 \
+    openssh-client \
+    rsync \
+    ssmtp mailutils \
+    --no-install-recommends \
+    && rm -rf /var/lib/apt/lists/*
+
+# modify ssmtp settings
+RUN sed -ri -e 's/^(mailhub=).*/\1mailer/' \
+    -e 's/^(hostname=).*/\1yiiframework.com/' \
+    -e 's/^(#FromLineOverride=)(.*)/\1\2/' \
+    /etc/ssmtp/ssmtp.conf
+
+# Set up php sendmail config
+RUN echo "sendmail_path=/usr/sbin/sendmail -i -t" >> /usr/local/etc/php/conf.d/php-sendmail.ini
+
+COPY default.conf /etc/apache2/sites-enabled/000-default.conf
+
+COPY testport.conf /etc/apache2/conf-available/testport.conf
+RUN a2enconf testport
+
+RUN a2enmod rewrite
+
+RUN rm -rf /var/www/html
+
+ARG wwwUid=""
+ARG wwwGid=""
+
+RUN if [ -n "$wwwUid" ] && [ "$wwwUid" -ge 500 ]; then usermod -u "$wwwUid" www-data; fi
+RUN if [ -n "$wwwGid" ] && [ "$wwwGid" -ge 500 ]; then groupmod -g "$wwwGid" www-data; fi
+
+# /var/www is ~www-data, and yarn and composer want to put their caches in there
+RUN chown -R www-data:www-data /var/www /usr/local/bin/composer
+
+RUN mkdir -p /var/www/.composerhost
+RUN mkdir -p /var/www/.composer
+RUN chown -R www-data:www-data /var/www/.composerhost
+RUN chown -R www-data:www-data /var/www/.composer
+RUN ln -s /var/www/.composerhost/auth.json /var/www/.composer/auth.json
+VOLUME /var/www/.composerhost
+
+COPY start-ssh-agent /usr/local/bin
+RUN chmod a+x /usr/local/bin/start-ssh-agent
+
+USER root
+
+RUN chsh -s /bin/bash www-data
+
+WORKDIR /var/www/app
+
+# we need to set the default path for su users since we use su
+RUN sed -i 's/ENV_PATH\(\s*\)PATH=\(.*\)/ENV_PATH\1PATH=\/var\/www\/app\/node_modules\/\.bin:\2/' /etc/login.defs
+
+ENV DOCKERIZED=true
+ENV APPENV=development
