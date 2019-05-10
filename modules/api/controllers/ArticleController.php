@@ -68,7 +68,7 @@ class ArticleController extends ActiveController
                     }
 
                     throw new NotFoundHttpException("Object not found: $id");
-                }
+                },
             ],
             'feed' => [
                 'class' => IndexAction::class,

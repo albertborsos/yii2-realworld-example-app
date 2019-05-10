@@ -57,27 +57,44 @@ class Module extends \yii\base\Module implements BootstrapInterface
                 'class' => UrlRule::class,
                 'prefix' => $this->id,
                 'controller' => ['articles' => $this->id . '/article'],
-                'except' => ['feed'],
-                'extraPatterns' => [
-                    'POST {id}/favorite' => 'favorite',
-                    'DELETE {id}/favorite' => 'unfavorite',
+                'only' => ['feed'],
+                'patterns' => [
+                    'GET,HEAD feed' => 'feed',
+                ],
+                'ruleConfig' => [
+                    'class' => \yii\web\UrlRule::class,
+                    'defaults' => ['isFeed' => 1],
+                ],
+            ],
+            [
+                'class' => UrlRule::class,
+                'prefix' => $this->id,
+                'controller' => ['articles' => $this->id . '/comment'],
+                'patterns' => [
+                    'POST {slug}/comments' => 'create',
+                    'GET,HEAD {slug}/comments' => 'index',
+                    'DELETE {slug}/comments/{id}' => 'delete',
+                    '{slug}/comments/{id}' => 'options',
+                    '{slug}/comments' => 'options',
                 ],
                 'tokens' => [
-                    '{id}' => '<id>',
+                    '{slug}' => '<slug>',
+                    '{id}' => '<id:\\d[\\d,]*>',
                 ],
             ],
             [
                 'class' => UrlRule::class,
                 'prefix' => $this->id,
                 'controller' => ['articles' => $this->id . '/article'],
-                'only' => ['feed'],
+                'except' => ['feed'],
                 'extraPatterns' => [
-                    'GET,HEAD feed' => 'feed',
+                    // favorite
+                    'POST {id}/favorite' => 'favorite',
+                    'DELETE {id}/favorite' => 'unfavorite',
                 ],
-                'ruleConfig' => [
-                    'class' => \yii\web\UrlRule::class,
-                    'defaults' => ['isFeed' => 1],
-                ]
+                'tokens' => [
+                    '{id}' => '<id>',
+                ],
             ],
             [
                 'class' => UrlRule::class,
