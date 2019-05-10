@@ -11,6 +11,7 @@ trait ControllerAliasTrait
         if ($this->modelAlias) {
             $this->serializer = ['class' => Serializer::class, 'alias' => $this->modelAlias];
         }
+
         parent::init();
     }
 }

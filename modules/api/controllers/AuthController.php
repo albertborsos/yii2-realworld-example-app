@@ -10,7 +10,6 @@ use app\modules\api\services\user\forms\UpdateUserForm;
 use app\modules\api\services\user\LoginUserService;
 use app\modules\api\services\user\RegisterUserService;
 use app\modules\api\services\user\UpdateUserService;
-use yii\rest\OptionsAction;
 
 class AuthController extends Controller
 {
@@ -22,15 +21,6 @@ class AuthController extends Controller
         $behaviors['authenticator']['except'] = ['login', 'create'];
 
         return $behaviors;
-    }
-
-    public function actions()
-    {
-        return [
-            'options' => [
-                'class' => OptionsAction::class,
-            ],
-        ];
     }
 
     public function verbs()

@@ -10,7 +10,6 @@ use app\modules\api\services\comment\forms\CreateCommentForm;
 use app\modules\api\services\comment\forms\SearchCommentForm;
 use Yii;
 use yii\rest\DeleteAction;
-use yii\rest\OptionsAction;
 use yii\web\NotFoundHttpException;
 
 class CommentController extends Controller
@@ -46,9 +45,6 @@ class CommentController extends Controller
 
                     throw new NotFoundHttpException("Comment not found: $id");
                 },
-            ],
-            'options' => [
-                'class' => OptionsAction::class,
             ],
         ]);
     }

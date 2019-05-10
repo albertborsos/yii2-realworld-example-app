@@ -110,6 +110,12 @@ class Module extends \yii\base\Module implements BootstrapInterface
                     '{username}' => '<username>',
                 ],
             ],
+            [
+                'class' => UrlRule::class,
+                'prefix' => $this->id,
+                'controller' => ['tags' => $this->id . '/tag'],
+                'only' => ['index'],
+            ],
         ]);
     }
 }
