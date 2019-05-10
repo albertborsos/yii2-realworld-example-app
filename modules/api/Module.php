@@ -41,14 +41,15 @@ class Module extends \yii\base\Module implements BootstrapInterface
                 'prefix' => $this->id,
                 'controller' => ['users' => $this->id . '/auth'],
                 'extraPatterns' => [
-                    'login' => 'login',
+                    'POST login' => 'login',
+                    'OPTIONS login' => 'options',
                 ],
             ],
             [
                 'class' => UrlRule::class,
                 'prefix' => $this->id,
                 'controller' => ['user' => $this->id . '/auth'],
-                'only' => ['index', 'update'],
+                'only' => ['index', 'update', 'options'],
                 'extraPatterns' => [
                     'PUT,PATCH' => 'update',
                 ],
@@ -57,9 +58,10 @@ class Module extends \yii\base\Module implements BootstrapInterface
                 'class' => UrlRule::class,
                 'prefix' => $this->id,
                 'controller' => ['articles' => $this->id . '/article'],
-                'only' => ['feed'],
+                'only' => ['feed', 'options'],
                 'patterns' => [
                     'GET,HEAD feed' => 'feed',
+                    'OPTIONS feed' => 'options',
                 ],
                 'ruleConfig' => [
                     'class' => \yii\web\UrlRule::class,
@@ -91,6 +93,7 @@ class Module extends \yii\base\Module implements BootstrapInterface
                     // favorite
                     'POST {id}/favorite' => 'favorite',
                     'DELETE {id}/favorite' => 'unfavorite',
+                    'OPTIONS {id}/favorite' => 'options',
                 ],
                 'tokens' => [
                     '{id}' => '<id>',
@@ -100,11 +103,14 @@ class Module extends \yii\base\Module implements BootstrapInterface
                 'class' => UrlRule::class,
                 'prefix' => $this->id,
                 'controller' => ['profiles' => $this->id . '/profile'],
-                'only' => ['view', 'follow', 'unfollow'],
+                'only' => ['view', 'follow', 'unfollow', 'options'],
                 'extraPatterns' => [
                     'GET,HEAD {username}' => 'view',
+                    'OPTIONS {username}' => 'options',
+
                     'POST {username}/follow' => 'follow',
                     'DELETE {username}/follow' => 'unfollow',
+                    'OPTIONS {username}/follow' => 'options',
                 ],
                 'tokens' => [
                     '{username}' => '<username>',
@@ -114,7 +120,7 @@ class Module extends \yii\base\Module implements BootstrapInterface
                 'class' => UrlRule::class,
                 'prefix' => $this->id,
                 'controller' => ['tags' => $this->id . '/tag'],
-                'only' => ['index'],
+                'only' => ['index', 'options'],
             ],
         ]);
     }

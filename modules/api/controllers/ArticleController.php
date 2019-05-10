@@ -29,7 +29,7 @@ class ArticleController extends ActiveController
     public function behaviors()
     {
         $behaviors = parent::behaviors();
-        $behaviors['authenticator']['except'] = ['index'];
+        $behaviors['authenticator']['except'] = ['index', 'view'];
 
         return $behaviors;
     }

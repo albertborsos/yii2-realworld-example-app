@@ -23,13 +23,6 @@ class AuthController extends Controller
         return $behaviors;
     }
 
-    public function verbs()
-    {
-        return [
-            'login' => ['POST', 'OPTIONS'],
-        ];
-    }
-
     /** Registration */
     public function actionCreate()
     {

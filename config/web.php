@@ -1,7 +1,5 @@
 <?php
 
-use yii\rest\UrlRule;
-
 $params = require __DIR__ . '/params.php';
 $db = require __DIR__ . '/db.php';
 
@@ -52,6 +50,11 @@ $config = [
         'urlManager' => [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
+            'normalizer' => [
+                'class' => \yii\web\UrlNormalizer::class,
+                // use temporary redirection instead of permanent for debugging
+                'action' => \yii\web\UrlNormalizer::ACTION_REDIRECT_TEMPORARY,
+            ],
         ],
         'i18n' => [
             'class' => \yii\i18n\I18N::class,
