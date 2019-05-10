@@ -3,6 +3,7 @@
 namespace app\modules\api\services\article\forms;
 
 use app\components\validators\HtmlPurifierFilter;
+use app\modules\api\domains\user\User;
 use yii\base\Model;
 
 class CreateArticleForm extends Model
@@ -26,6 +27,9 @@ class CreateArticleForm extends Model
             [['tagList'], 'each', 'rule' => ['trim']],
             [['tagList'], 'each', 'rule' => ['default']],
             [['tagList'], 'each', 'rule' => ['string']],
+
+            [['user_id'], 'required'],
+            [['user_id'], 'exist', 'targetClass' => User::class, 'targetAttribute' => 'id'],
         ];
     }
 }

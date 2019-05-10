@@ -26,6 +26,16 @@ $config = [
             ],
         ],
         'db' => $db,
+        'i18n' => [
+            'class' => \yii\i18n\I18N::class,
+            'translations' => [
+                '*' => [
+                    'basePath' => '@app/messages',
+                    'class' => yii\i18n\PhpMessageSource::class,
+                    'sourceLanguage' => 'en',
+                ],
+            ],
+        ],
     ],
     'params' => $params,
     /*
