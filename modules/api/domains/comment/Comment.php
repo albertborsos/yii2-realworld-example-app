@@ -4,6 +4,7 @@ namespace app\modules\api\domains\comment;
 
 use app\modules\api\domains\article\Article;
 use app\modules\api\domains\user\User;
+use Carbon\Carbon;
 
 class Comment extends \app\domains\comment\Comment
 {
@@ -14,13 +15,15 @@ class Comment extends \app\domains\comment\Comment
     {
         return [
             'id',
-            'user_id',
+            'author',
             'article_id',
             'body',
-            'created_at',
-            'created_by',
-            'updated_at',
-            'updated_by',
+            'createdAt' => function () {
+                return (new Carbon($this->created_at))->copy()->utc()->rawFormat('Y-m-d\TH:i:s.u\Z');
+            },
+            'updatedAt' => function () {
+                return (new Carbon($this->updated_at))->copy()->utc()->rawFormat('Y-m-d\TH:i:s.u\Z');
+            },
         ];
     }
 

@@ -6,7 +6,6 @@ use app\modules\api\domains\comment\Comment;
 use app\modules\api\domains\favorite\Favorite;
 use app\modules\api\domains\tag\Tag;
 use app\modules\api\domains\user\Profile;
-use app\modules\api\domains\user\User;
 use Carbon\Carbon;
 use Yii;
 

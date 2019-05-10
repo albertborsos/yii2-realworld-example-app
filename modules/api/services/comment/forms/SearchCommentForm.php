@@ -2,9 +2,9 @@
 
 namespace app\modules\api\services\comment\forms;
 
+use app\modules\api\domains\comment\Comment;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use app\domains\comment\Comment;
 
 /**
  * CommentSearch represents the model behind the search form of `app\domains\comment\Comment`.

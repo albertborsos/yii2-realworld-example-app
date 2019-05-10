@@ -19,4 +19,12 @@ class Comment extends \app\domains\comment\ar\Comment
             'timestamp' => TimestampBehavior::class,
         ]);
     }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getAuthor()
+    {
+        return $this->getUser();
+    }
 }
