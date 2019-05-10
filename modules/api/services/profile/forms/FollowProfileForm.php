@@ -29,7 +29,7 @@ class FollowProfileForm extends Model
             [['followed_id'], 'exist', 'targetClass' => Profile::class, 'targetAttribute' => 'id'],
             [['follower_id'], 'exist', 'targetClass' => Profile::class, 'targetAttribute' => 'id'],
 
-            [['username'], 'isNotFollowing'],
+            [['username'], 'isNotFollowing', 'skipOnEmpty' => false],
         ];
     }
 

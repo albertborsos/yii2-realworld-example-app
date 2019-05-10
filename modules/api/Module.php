@@ -58,6 +58,10 @@ class Module extends \yii\base\Module implements BootstrapInterface
                 'prefix' => $this->id,
                 'controller' => ['articles' => $this->id . '/article'],
                 'except' => ['feed'],
+                'extraPatterns' => [
+                    'POST {id}/favorite' => 'favorite',
+                    'DELETE {id}/favorite' => 'unfavorite',
+                ],
                 'tokens' => [
                     '{id}' => '<id>',
                 ],
