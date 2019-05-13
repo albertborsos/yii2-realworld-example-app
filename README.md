@@ -21,8 +21,10 @@ For more information on how to this works with other frontends/backends, head ov
 
 # Getting started
 
-> docker-compose up
-> docker exec -it yii2-realword-example-app_web_1 /bin/bash
-> composer install
-> ./yii migrate
-> ./yii conduit/seeder
+```
+docker-compose up
+docker exec -it yii2-realword-example-app_web_1 /bin/bash
+composer install
+./yii migrate
+./yii conduit/seeder
+```
