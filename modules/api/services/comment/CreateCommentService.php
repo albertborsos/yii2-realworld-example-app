@@ -2,7 +2,7 @@
 
 namespace app\modules\api\services\comment;
 
-use app\components\Service;
+use app\modules\conduit\components\Service;
 use app\modules\api\domains\comment\Comment;
 
 class CreateCommentService extends Service

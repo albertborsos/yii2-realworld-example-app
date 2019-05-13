@@ -2,8 +2,8 @@
 
 namespace app\modules\api\services\tag;
 
-use app\components\Service;
-use app\domains\tag\Tag;
+use app\modules\conduit\components\Service;
+use app\modules\conduit\domains\tag\Tag;
 use app\modules\api\services\tag\forms\CreateTagForm;
 
 /**

@@ -2,7 +2,7 @@
 
 namespace app\modules\api\services\article\forms;
 
-use app\components\validators\HtmlPurifierFilter;
+use app\modules\conduit\components\validators\HtmlPurifierFilter;
 use app\modules\api\domains\article\Article;
 use app\modules\api\domains\favorite\Favorite;
 use app\modules\api\domains\user\User;

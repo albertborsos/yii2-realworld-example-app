@@ -2,7 +2,7 @@
 
 namespace app\modules\api\services\profile\forms;
 
-use app\components\validators\HtmlPurifierFilter;
+use app\modules\conduit\components\validators\HtmlPurifierFilter;
 use app\modules\api\domains\follow\Follow;
 use app\modules\api\domains\user\Profile;
 use Yii;

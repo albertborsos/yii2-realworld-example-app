@@ -6,7 +6,7 @@ use app\modules\api\domains\article\Article;
 use app\modules\api\domains\user\User;
 use Carbon\Carbon;
 
-class Comment extends \app\domains\comment\Comment
+class Comment extends \app\modules\conduit\domains\comment\Comment
 {
     protected $articleClass = Article::class;
     protected $userClass = User::class;

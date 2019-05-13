@@ -2,7 +2,7 @@
 
 namespace app\modules\api\services\profile;
 
-use app\components\Service;
+use app\modules\conduit\components\Service;
 use app\modules\api\domains\follow\Follow;
 use app\modules\api\services\profile\forms\FollowProfileForm;
 

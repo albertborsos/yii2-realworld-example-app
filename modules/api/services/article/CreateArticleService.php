@@ -2,11 +2,11 @@
 
 namespace app\modules\api\services\article;
 
-use app\components\Service;
+use app\modules\conduit\components\Service;
 use app\modules\api\domains\article\Article;
 use app\modules\api\services\article\forms\CreateArticleForm;
 use app\modules\api\services\article\forms\CreateArticleTagForm;
-use app\repositories\TagRepository;
+use app\modules\conduit\repositories\TagRepository;
 use yii\base\Exception;
 use yii\helpers\Json;
 
