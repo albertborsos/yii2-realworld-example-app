@@ -2,7 +2,7 @@
 
 namespace app\modules\api\services\comment\forms;
 
-use app\components\validators\HtmlPurifierFilter;
+use app\modules\conduit\components\validators\HtmlPurifierFilter;
 use app\modules\api\domains\article\Article;
 use app\modules\api\domains\user\User;
 use yii\base\Model;

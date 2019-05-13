@@ -1,7 +1,5 @@
 <?php
 $common = require __DIR__ . '/web.php';
-$params = require __DIR__ . '/params.php';
-$db = require __DIR__ . '/test_db.php';
 
 /**
  * Application configuration shared by all test types
@@ -10,7 +8,9 @@ return \yii\helpers\ArrayHelper::merge($common, [
     'id' => 'basic-tests',
     'basePath' => dirname(__DIR__),
     'components' => [
-        'db' => $db,
+        'db' => [
+            'dsn' => getenv('DB_TEST_DSN'),
+        ],
         'mailer' => [
             'useFileTransport' => true,
         ],
@@ -28,5 +28,4 @@ return \yii\helpers\ArrayHelper::merge($common, [
             */
         ],
     ],
-    'params' => $params,
 ]);

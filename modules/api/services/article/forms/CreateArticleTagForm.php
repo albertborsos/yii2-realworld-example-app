@@ -2,10 +2,10 @@
 
 namespace app\modules\api\services\article\forms;
 
-use app\components\validators\HtmlPurifierFilter;
-use app\domains\article\Article;
-use app\domains\article\ArticleTag;
-use app\domains\tag\Tag;
+use app\modules\conduit\components\validators\HtmlPurifierFilter;
+use app\modules\conduit\domains\article\Article;
+use app\modules\conduit\domains\article\ArticleTag;
+use app\modules\conduit\domains\tag\Tag;
 use yii\base\Model;
 
 class CreateArticleTagForm extends Model

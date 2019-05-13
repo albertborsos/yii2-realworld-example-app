@@ -2,7 +2,7 @@
 
 namespace app\modules\api\services\user;
 
-use app\components\Service;
+use app\modules\conduit\components\Service;
 
 class UpdateUserService extends Service
 {

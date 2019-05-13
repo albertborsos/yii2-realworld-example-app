@@ -7,7 +7,7 @@ use app\modules\api\domains\comment\Comment;
 use app\modules\api\domains\favorite\Favorite;
 use app\modules\api\domains\follow\Follow;
 
-class User extends \app\domains\user\User
+class User extends \app\modules\conduit\domains\user\User
 {
     protected $articleClass = Article::class;
     protected $commentClass = Comment::class;

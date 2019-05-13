@@ -5,7 +5,7 @@ namespace app\modules\api\domains\favorite;
 use app\modules\api\domains\article\Article;
 use app\modules\api\domains\user\User;
 
-class Favorite extends \app\domains\favorite\Favorite
+class Favorite extends \app\modules\conduit\domains\favorite\Favorite
 {
     protected $articleClass = Article::class;
     protected $userClass = User::class;

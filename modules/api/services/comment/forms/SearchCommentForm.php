@@ -7,7 +7,7 @@ use yii\base\Model;
 use yii\data\ActiveDataProvider;
 
 /**
- * CommentSearch represents the model behind the search form of `app\domains\comment\Comment`.
+ * CommentSearch represents the model behind the search form of `app\modules\conduit\domains\comment\Comment`.
  */
 class SearchCommentForm extends Comment
 {

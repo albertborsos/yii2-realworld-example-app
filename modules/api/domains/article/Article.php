@@ -9,7 +9,7 @@ use app\modules\api\domains\user\Profile;
 use Carbon\Carbon;
 use Yii;
 
-class Article extends \app\domains\article\Article
+class Article extends \app\modules\conduit\domains\article\Article
 {
     protected $userClass = Profile::class;
     protected $articleTagClass = ArticleTag::class;

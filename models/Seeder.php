@@ -122,7 +122,7 @@ class Seeder extends Component
             throw new Exception(Json::errorSummary($form));
         }
 
-        return \app\domains\user\User::find()->all();
+        return \app\modules\conduit\domains\user\User::find()->all();
     }
 
     /**

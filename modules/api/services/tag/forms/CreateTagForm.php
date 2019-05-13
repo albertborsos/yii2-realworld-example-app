@@ -2,8 +2,8 @@
 
 namespace app\modules\api\services\tag\forms;
 
-use app\components\validators\HtmlPurifierFilter;
-use app\domains\tag\Tag;
+use app\modules\conduit\components\validators\HtmlPurifierFilter;
+use app\modules\conduit\domains\tag\Tag;
 use yii\base\Model;
 
 class CreateTagForm extends Model

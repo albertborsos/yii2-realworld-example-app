@@ -2,8 +2,8 @@
 
 namespace app\modules\api\services\article;
 
-use app\components\Service;
-use app\domains\article\ArticleTag;
+use app\modules\conduit\components\Service;
+use app\modules\conduit\domains\article\ArticleTag;
 use app\modules\api\services\article\forms\CreateArticleTagForm;
 
 /**

@@ -1,18 +1,10 @@
 <?php
 
-$params = require __DIR__ . '/params.php';
-$db = require __DIR__ . '/db.php';
+$common = require __DIR__ . '/common.php';
 
 $config = [
     'id' => 'basic',
-    'basePath' => dirname(__DIR__),
-    'bootstrap' => ['log', 'api'],
-    'language' => 'en',
-    'sourceLanguage' => 'en',
-    'aliases' => [
-        '@bower' => '@vendor/bower-asset',
-        '@npm' => '@vendor/npm-asset',
-    ],
+    'bootstrap' => ['log', 'conduit', 'api'],
     'components' => [
         'request' => [
             'cookieValidationKey' => 'rXVaWYxMOJyzDm8xNAyotFsGxZDT5WEk',
@@ -20,51 +12,12 @@ $config = [
                 'application/json' => \yii\web\JsonParser::class,
             ],
         ],
-        'cache' => [
-            'class' => 'yii\caching\FileCache',
-        ],
         'user' => [
-            'identityClass' => \app\domains\user\User::class,
+            'identityClass' => \app\modules\conduit\domains\user\User::class,
             'enableAutoLogin' => true,
         ],
         'errorHandler' => [
             'errorAction' => 'site/error',
-        ],
-        'mailer' => [
-            'class' => 'yii\swiftmailer\Mailer',
-            // send all mails to a file by default. You have to set
-            // 'useFileTransport' to false and configure a transport
-            // for the mailer to send real emails.
-            'useFileTransport' => true,
-        ],
-        'log' => [
-            'traceLevel' => YII_DEBUG ? 3 : 0,
-            'targets' => [
-                [
-                    'class' => 'yii\log\FileTarget',
-                    'levels' => ['error', 'warning'],
-                ],
-            ],
-        ],
-        'db' => $db,
-        'urlManager' => [
-            'enablePrettyUrl' => true,
-            'showScriptName' => false,
-            'normalizer' => [
-                'class' => \yii\web\UrlNormalizer::class,
-                // use temporary redirection instead of permanent for debugging
-                'action' => \yii\web\UrlNormalizer::ACTION_REDIRECT_TEMPORARY,
-            ],
-        ],
-        'i18n' => [
-            'class' => \yii\i18n\I18N::class,
-            'translations' => [
-                '*' => [
-                    'basePath' => '@app/messages',
-                    'class' => yii\i18n\PhpMessageSource::class,
-                    'sourceLanguage' => 'en',
-                ],
-            ],
         ],
     ],
     'modules' => [
@@ -72,7 +25,6 @@ $config = [
             'class' => \app\modules\api\Module::class,
         ],
     ],
-    'params' => $params,
 ];
 
 if (YII_ENV_DEV) {
@@ -92,4 +44,4 @@ if (YII_ENV_DEV) {
     ];
 }
 
-return $config;
+return \yii\helpers\ArrayHelper::merge($common, $config);
