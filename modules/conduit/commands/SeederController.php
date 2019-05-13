@@ -2,7 +2,7 @@
 
 namespace app\modules\conduit\commands;
 
-use app\models\Seeder;
+use app\modules\conduit\models\Seeder;
 use yii\console\Controller;
 
 class SeederController extends Controller

@@ -1,6 +1,6 @@
 <?php
 
-namespace app\models;
+namespace app\modules\conduit\models;
 
 use app\modules\api\services\article\CreateArticleService;
 use app\modules\api\services\article\FavoriteArticleService;
@@ -10,8 +10,6 @@ use app\modules\api\services\comment\CreateCommentService;
 use app\modules\api\services\comment\forms\CreateCommentForm;
 use app\modules\api\services\profile\FollowProfileService;
 use app\modules\api\services\profile\forms\FollowProfileForm;
-use app\modules\api\services\tag\CreateTagService;
-use app\modules\api\services\tag\forms\CreateTagForm;
 use app\modules\api\services\user\forms\RegisterUserForm;
 use app\modules\api\services\user\RegisterUserService;
 use Faker\Factory;
