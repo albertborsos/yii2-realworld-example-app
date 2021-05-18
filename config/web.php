@@ -7,7 +7,7 @@ $config = [
     'bootstrap' => ['log', 'conduit', 'api'],
     'components' => [
         'request' => [
-            'cookieValidationKey' => 'rXVaWYxMOJyzDm8xNAyotFsGxZDT5WEk',
+            'cookieValidationKey' => '',
             'parsers' => [
                 'application/json' => \yii\web\JsonParser::class,
             ],
