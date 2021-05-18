@@ -1,4 +1,4 @@
-FROM yiisoftware/yii-php:7.3-apache
+FROM yiisoftware/yii-php:8.0-apache
 
 RUN apt-get update && \
     apt-get -y install \
@@ -7,23 +7,14 @@ RUN apt-get update && \
     bzip2 \
     openssh-client \
     rsync \
-    ssmtp mailutils \
+    mailutils \
     --no-install-recommends \
     && rm -rf /var/lib/apt/lists/*
-
-# modify ssmtp settings
-RUN sed -ri -e 's/^(mailhub=).*/\1mailer/' \
-    -e 's/^(hostname=).*/\1yiiframework.com/' \
-    -e 's/^(#FromLineOverride=)(.*)/\1\2/' \
-    /etc/ssmtp/ssmtp.conf
 
 # Set up php sendmail config
 RUN echo "sendmail_path=/usr/sbin/sendmail -i -t" >> /usr/local/etc/php/conf.d/php-sendmail.ini
 
 COPY default.conf /etc/apache2/sites-enabled/000-default.conf
-
-COPY testport.conf /etc/apache2/conf-available/testport.conf
-RUN a2enconf testport
 
 RUN a2enmod rewrite
 
