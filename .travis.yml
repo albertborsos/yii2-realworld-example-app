@@ -36,6 +36,8 @@ install:
   - |
     if (php --version | grep -i HipHop > /dev/null); then
       echo "Skipping imagick and gmagick tests on HHVM"
+    elif (php --version | grep -i 8.0 > /dev/null); then
+      echo "Skipping imagick and gmagick tests on php 8.0"
     else
       pear config-set preferred_state beta
       printf "\n" | pecl install imagick
